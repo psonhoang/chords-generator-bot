@@ -46,7 +46,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 module.exports = {
-	handelMessage,
+	handleMessage,
 	handlePostback,
 	callSendAPI
 };
