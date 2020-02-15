@@ -20,10 +20,10 @@ function handleMessage(sender_psid, received_message) {
 		        "type": "template",
 		        "payload": {
 		        	"template_type": "open_graph",
-		        	"elements": [
+		        	"elements":[
 		        		{
-		        			"url": attachment_url,
-		        			"buttons": [
+		        			"url": "https://open.spotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+		        			"buttons":[
 		        				{
 					                "type": "postback",
 					                "title": "Yes! This is my audio file :)",
