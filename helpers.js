@@ -12,6 +12,34 @@ function handleMessage(sender_psid, received_message) {
 		response = {
 			"text": `Okay, so you told me to: "${received_message.text}". Now send me noods ;)`
 		};
+	} else if(received_message.attachments) {
+		// Get the URL of the message's attachment
+		let attachment_url = received_message.attachments[0].payload.url;
+		response = {
+			"attachment": {
+		        "type": "template",
+		        "payload": {
+		          "template_type": "generic",
+		          "elements": [{
+		            "title": "Is this the right audio?",
+		            "subtitle": "Tap a button to answer.",
+		            "audio_url": attachment_url,
+		            "buttons": [
+		              {
+		                "type": "postback",
+		                "title": "Yes!",
+		                "payload": "yes",
+		              },
+		              {
+		                "type": "postback",
+		                "title": "No!",
+		                "payload": "no",
+		              }
+		            ],
+		          }]
+		        }
+	        }
+		}
 	}
 
 	callSendAPI(sender_psid, response);
