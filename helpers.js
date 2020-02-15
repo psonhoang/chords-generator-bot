@@ -57,9 +57,13 @@ function handlePostback(sender_psid, received_postback) {
 
 	// Set the response based on the postback payload
 	if(payload == 'yes' && currentState == 'checkRec') {
+		confirm_response = responses.correctAudio();
+		callSendAPI(sender_psid, confirm_response);
+
 		//TODO: Script to generate chords
-		response = responses.correctAudio();
-		global.users[sender_psid].currentState == 'finished';
+
+		response = responses.finished();
+		global.users[sender_psid].currentState = 'finished';
 	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();
 		global.users[sender_psid].currentState = 'sendRec';
