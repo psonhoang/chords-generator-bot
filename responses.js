@@ -43,6 +43,16 @@ function checkAudio() {
 	return response;
 }
 
+function notAudioFile() {
+	let response = {'text': "I don't think you sent an audio file... Please try again"};
+	return response;
+}
+
+function notConfirmed() {
+	let response = {'text': 'Please confirm that the file attached above is your audio first'};
+	return response;
+}
+
 function wrongAudio() {
 	let response = {'text': 'Oof... try sending another audio file then'};
 	return response;
@@ -78,11 +88,17 @@ function finished() {
 	return response;
 }
 
+function goodbye() {
+	let response = {'text': 'Bye bye then!'};
+	return response;
+}
+
 module.exports = {
 	getStarted,
 	audioResponse,
 	checkAudio,
 	wrongAudio,
 	correctAudio,
-	finished
+	finished,
+	goodbye
 }

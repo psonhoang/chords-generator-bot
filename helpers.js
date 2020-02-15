@@ -15,7 +15,7 @@ function handleMessage(sender_psid, received_message) {
 		response = responses.getStarted();
 		global.users[sender_psid].currentState = 'sendRec';
 	} else if(currentState == 'sendRec') {
-		if(received_message.attachments) {
+		if(received_message.attachments && received_message.attachments[0].type == 'audio') {
 			// Get the URL of the message's attachment
 			let attachment_url = received_message.attachments[0].payload.url;
 			let received_audio_response = responses.audioResponse(attachment_url);
@@ -24,10 +24,10 @@ function handleMessage(sender_psid, received_message) {
 			response = responses.checkAudio();
 			global.users[sender_psid].currentState = 'checkRec';
 		} else {
-			response = {'text': "I don't think you sent an audio file... Please try again"};
+			response = responses.notAudioFile();
 		}
 	} else if(currentState == 'checkRec') {
-		response = {'text': 'Please confirm that the file attached above is your audio first'};
+		response = responses.notConfirmed();
 	} else if(currentState == 'finished') {
 		response = responses.finished();
 	}
@@ -70,6 +70,9 @@ function handlePostback(sender_psid, received_postback) {
 	} else if (payload == 'try_again' && currentState == 'finished') {
 		response = responses.getStarted();
 		global.users[sender_psid].currentState = 'sendRec';
+	} else if (payload == 'done' && currentState == 'finsihed') {
+		response = responses.goodbye();
+		global.users[sender_psid].currentState = 'initial';
 	}
 
 	// Send a message to acknowledge the postback
