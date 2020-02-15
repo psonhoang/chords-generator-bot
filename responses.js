@@ -97,6 +97,8 @@ module.exports = {
 	getStarted,
 	audioResponse,
 	checkAudio,
+	notAudioFile,
+	notConfirmed,
 	wrongAudio,
 	correctAudio,
 	finished,
