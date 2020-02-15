@@ -22,7 +22,7 @@ function handleMessage(sender_psid, received_message) {
 		          "template_type": "media",
 		          "elements": [
 		          	{
-		            	"media-type": "video",
+		            	"media_type": "video",
 		            	"url": attachment_url,
 		            	"buttons": [
 		            		{
