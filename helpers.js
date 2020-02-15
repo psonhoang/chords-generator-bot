@@ -13,6 +13,7 @@ function handleMessage(sender_psid, received_message) {
 
 	if(currentState == 'initial') {
 		response = responses.getStarted();
+		global.users[sender_psid].currentState = 'sendRec';
 	} else if(currentState == 'sendRec') {
 		if(received_message.attachments) {
 			// Get the URL of the message's attachment
@@ -56,14 +57,14 @@ function handlePostback(sender_psid, received_postback) {
 
 	// Set the response based on the postback payload
 	if(payload == 'yes' && currentState == 'checkRec') {
-		global.users[sender_psid].currentState == 'done';
-		// Script to generate chords
+		//TODO: Script to generate chords
 		response = responses.correctAudio();
+		global.users[sender_psid].currentState == 'finished';
 	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();
 	} else if (payload == 'try_again' && currentState == 'finished') {
-		global.users[sender_psid].currentState = 'sendRec';
 		response = responses.getStarted();
+		global.users[sender_psid].currentState = 'sendRec';
 	}
 
 	// Send a message to acknowledge the postback
