@@ -22,12 +22,12 @@ function handleMessage(sender_psid, received_message) {
 			// Preview sent audio
 			callSendAPI(sender_psid, received_audio_response);
 			response = responses.checkAudio();
-			global.users[sender_psid].currentState = 'checkRec';
+			global.users[sender_psid].currentState = 'sendRec';
 		} else {
 			response = {'text': "I don't think you sent an audio file... Please try again"};
 		}
 	} else if(currentState == 'checkRec') {
-		response = {'text': 'Your chords have already been generated please check the file attached above'};
+		response = {'text': 'Please confirm that the file attached above is your audio first'};
 	} else if(currentState == 'finished') {
 		response = responses.finished();
 	}
@@ -62,6 +62,7 @@ function handlePostback(sender_psid, received_postback) {
 		global.users[sender_psid].currentState == 'finished';
 	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();
+		global.users[sender_psid].currentState = 'sendRec';
 	} else if (payload == 'try_again' && currentState == 'finished') {
 		response = responses.getStarted();
 		global.users[sender_psid].currentState = 'sendRec';
