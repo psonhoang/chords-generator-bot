@@ -15,18 +15,24 @@ function handleMessage(sender_psid, received_message) {
 	} else if(received_message.attachments) {
 		// Get the URL of the message's attachment
 		let attachment_url = received_message.attachments[0].payload.url;
+		let received_audio_response = {
+			'attachment': {
+				'type': 'audio',
+				'payload': {
+					'url': attachment_url,
+					'is_reusable': true
+				}
+			}
+		};
+		// Preview sent audio
+		callSendAPI(sender_psid, received_audio_response);
 		response = {
 			"attachment": {
 		        "type": "template",
 		        "payload": {
 		        	"template_type": "button",
-		        	"text": "Is this the audio file you just sent?",
+		        	"text": "Is that the audio file you just sent?",
 		        	"buttons":[
-		        		{
-        					"type": "web_url",
-        					"url": attachment_url,
-        					"title": "Click to check audio"
-        				},
         				{
 			                "type": "postback",
 			                "title": "Yes!",
@@ -40,7 +46,7 @@ function handleMessage(sender_psid, received_message) {
 		        	]
 		        }
 	        }
-		}
+		};
 	}
 
 	callSendAPI(sender_psid, response);
