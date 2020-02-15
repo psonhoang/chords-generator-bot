@@ -20,28 +20,23 @@ function handleMessage(sender_psid, received_message) {
 		        "type": "template",
 		        "payload": {
 		        	"template_type": "button",
-		        	"text": "Is this the audio file you just sent?"
-		        	"button":[
+		        	"text": "Is this the audio file you just sent?",
+		        	"buttons":[
 		        		{
-		        			"url": "https://open.spotify.com/track/7GhIk7Il098yCjg4BQjzvb",
-		        			"buttons":[
-		        				{
-		        					"type": "web_url",
-		        					"url": attachment_url,
-		        					"title": "Click to check received audio"
-		        				},
-		        				{
-					                "type": "postback",
-					                "title": "Yes!",
-					                "payload": "yes",
-				              	},
-				              	{
-					                "type": "postback",
-					                "title": "No!",
-					                "payload": "no",
-				              	}
-		        			]
-		        		}
+        					"type": "web_url",
+        					"url": attachment_url,
+        					"title": "Click to check received audio"
+        				},
+        				{
+			                "type": "postback",
+			                "title": "Yes!",
+			                "payload": "yes",
+		              	},
+		              	{
+			                "type": "postback",
+			                "title": "No!",
+			                "payload": "no",
+		              	}
 		        	]
 		        }
 	        }
