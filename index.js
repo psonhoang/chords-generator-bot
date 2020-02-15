@@ -1,6 +1,9 @@
 'use strict';
 
 const config = require('./config');
+const helpers = require('./helpers')
+
+const PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN;
 
 // Imports dependencies and set up http server
 const
@@ -51,6 +54,9 @@ app.post('/webhook', (req, res) => {
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
+
+      let sender_psid = webhook_event.sender.id;
+      console.log('Sender PSID: ' + sender_psid);
     });
 
     // Returns a '200 OK' response to all requests
