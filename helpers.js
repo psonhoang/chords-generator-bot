@@ -17,27 +17,10 @@ function handleMessage(sender_psid, received_message) {
 		let attachment_url = received_message.attachments[0].payload.url;
 		response = {
 			"attachment": {
-		        "type": "template",
+		        "type": "audio",
 		        "payload": {
-		          "template_type": "media",
-		          "elements": [
-		          	{
-		            	"media_type": "video",
-		            	"url": attachment_url,
-		            	"buttons": [
-		            		{
-				                "type": "postback",
-				                "title": "This is my audio :)",
-				                "payload": "yes"
-			              	},
-			              	{
-				                "type": "postback",
-				                "title": "No! This is not my audio :(",
-				                "payload": "no"
-			              	}
-		            	]
-		          	}
-		          ]
+		        	"url": attachment_url,
+		        	"is_reusable": true
 		        }
 	        }
 		}
