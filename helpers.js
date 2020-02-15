@@ -31,7 +31,7 @@ function handleMessage(sender_psid, received_message) {
 		        "type": "template",
 		        "payload": {
 		        	"template_type": "button",
-		        	"text": "Is that the audio file you just sent?",
+		        	"text": "Is this the audio file you just sent?",
 		        	"buttons":[
         				{
 			                "type": "postback",
