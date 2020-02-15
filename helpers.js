@@ -10,7 +10,7 @@ function handleMessage(sender_psid, received_message) {
 	if(received_message.text) {
 		// Create the payload for a basic text message
 		response = {
-			"text": `Okay, so you told me to: "${received_message.text}". Now send me noods ;)`
+			"text": `Okay, so you told me to: "${received_message.text}". Send me your audio!`
 		};
 	} else if(received_message.attachments) {
 		// Get the URL of the message's attachment
@@ -25,7 +25,7 @@ function handleMessage(sender_psid, received_message) {
 		        		{
         					"type": "web_url",
         					"url": attachment_url,
-        					"title": "Click to check received audio"
+        					"title": "Click to check audio"
         				},
         				{
 			                "type": "postback",
@@ -48,7 +48,20 @@ function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
+	let response;
 
+	// Get the payload for the postback
+	let payload = received_postback.payload;
+
+	// Set the response based on the postback payload
+	if(payload == 'yes') {
+		response = {'text': 'Nice! We will know generate chords for your audio...'};
+	} else if (payload == 'no') {
+		response = {'text': 'Oof... try sending another audio file then'};
+	}
+
+	// Send a message to acknowledge the postback
+	callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
