@@ -22,7 +22,7 @@ function handleMessage(sender_psid, received_message) {
 			// Preview sent audio
 			callSendAPI(sender_psid, received_audio_response);
 			response = responses.checkAudio();
-			global.users[sender_psid].currentState = 'sendRec';
+			global.users[sender_psid].currentState = 'checkRec';
 		} else {
 			response = {'text': "I don't think you sent an audio file... Please try again"};
 		}
