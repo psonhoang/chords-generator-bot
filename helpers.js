@@ -21,9 +21,9 @@ function handleMessage(sender_psid, received_message) {
 		        "payload": {
 		          "template_type": "generic",
 		          "elements": [{
-		            "title": "Is this the right audio?",
+		            "title": "Is this the right picture?",
 		            "subtitle": "Tap a button to answer.",
-		            "audio_url": attachment_url,
+		            "image_url": attachment_url,
 		            "buttons": [
 		              {
 		                "type": "postback",
