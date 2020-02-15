@@ -10,7 +10,7 @@ function handleMessage(sender_psid, received_message) {
 	if(received_message.text) {
 		// Create the payload for a basic text message
 		response = {
-			"text": "Okay, so you told me to: '${received_message.text}. Now send me noods ;)' "
+			"text": `Okay, so you told me to: "${received_message.text}". Now send me noods ;)`
 		};
 	}
 
