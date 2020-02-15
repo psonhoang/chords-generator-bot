@@ -54,12 +54,12 @@ function handlePostback(sender_psid, received_postback) {
 
 	// Set the response based on the postback payload
 	if(payload == 'yes' && currentState == 'checkRec') {
-		global.users[sender_psid].currentState = 'done';
+		global.users[sender_psid].currentState == 'done';
 		// Script to generate chords
 		response = responses.correctAudio();
 	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();
-	} else if (payload == 'try_again' && currentState = 'finished') {
+	} else if (payload == 'try_again' && currentState == 'finished') {
 		global.users[sender_psid].currentState = 'sendRec';
 		response = responses.getStarted();
 	}
