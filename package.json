@@ -4,7 +4,8 @@
   "description": "A Facebook chat bot that takes in your singing recording and creates an accompaniment track with chords => perfect for moments when you want to play an instrument as your friend sings!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
