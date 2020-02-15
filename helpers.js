@@ -1,53 +1,43 @@
 const request = require('request');
 
 const config = require('./config');
-
+const responses = require('./responses');
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
 	let response;
 
-	// Check if message contains text
-	if(received_message.text) {
-		// Create the payload for a basic text message
-		response = {
-			"text": `Okay, so you told me to: "${received_message.text}". Send me your audio!`
-		};
-	} else if(received_message.attachments) {
-		// Get the URL of the message's attachment
-		let attachment_url = received_message.attachments[0].payload.url;
-		let received_audio_response = {
-			'attachment': {
-				'type': 'audio',
-				'payload': {
-					'url': attachment_url,
-					'is_reusable': true
-				}
-			}
-		};
-		// Preview sent audio
-		callSendAPI(sender_psid, received_audio_response);
-		response = {
-			"attachment": {
-		        "type": "template",
-		        "payload": {
-		        	"template_type": "button",
-		        	"text": "Is this the audio file you just sent?",
-		        	"buttons":[
-        				{
-			                "type": "postback",
-			                "title": "Yes!",
-			                "payload": "yes",
-		              	},
-		              	{
-			                "type": "postback",
-			                "title": "No!",
-			                "payload": "no",
-		              	}
-		        	]
-		        }
-	        }
-		};
+	// User's current conversation state
+	let currentState = global.users[sender_psid].currentState;
+
+	if(currentState == 'initial') {
+		response = responses.getStarted();
+	} else if(currentState == 'sendRec') {
+		if(received_message.attachments) {
+			// Get the URL of the message's attachment
+			let attachment_url = received_message.attachments[0].payload.url;
+			let received_audio_response = responses.audioResponse(attachment_url);
+			// Preview sent audio
+			callSendAPI(sender_psid, received_audio_response);
+			response = responses.checkAudio();
+			global.users[sender_psid].currentState = 'checkRec';
+		} else {
+			response = {'text': "I don't think you sent an audio file... Please try again"};
+		}
+	} else if(currentState == 'checkRec') {
+		response = {'text': 'Your chords have already been generated please check the file attached above'};
+	} else if(currentState == 'finished') {
+		response = responses.finished();
 	}
+
+	// Check if message contains text
+	// if(received_message.text) {
+	// 	// Create the payload for a basic text message
+	// 	response = {
+	// 		"text": `Okay, so you told me to: "${received_message.text}". Send me your audio!`
+	// 	};
+	// } else if(received_message.attachments) {
+		
+	// }
 
 	callSendAPI(sender_psid, response);
 }
@@ -56,14 +46,22 @@ function handleMessage(sender_psid, received_message) {
 function handlePostback(sender_psid, received_postback) {
 	let response;
 
+	// User's current conversation state
+	let currentState = global.users[sender_psid].currentState;
+
 	// Get the payload for the postback
 	let payload = received_postback.payload;
 
 	// Set the response based on the postback payload
-	if(payload == 'yes') {
-		response = {'text': 'Nice! We will know generate chords for your audio...'};
-	} else if (payload == 'no') {
-		response = {'text': 'Oof... try sending another audio file then'};
+	if(payload == 'yes' && currentState == 'checkRec') {
+		global.users[sender_psid].currentState = 'done';
+		// Script to generate chords
+		response = responses.correctAudio();
+	} else if (payload == 'no' && currentState == 'checkRec') {
+		response = responses.wrongAudio();
+	} else if (payload == 'try_again' && currentState = 'finished') {
+		global.users[sender_psid].currentState = 'sendRec';
+		response = responses.getStarted();
 	}
 
 	// Send a message to acknowledge the postback
@@ -81,18 +79,21 @@ function callSendAPI(sender_psid, response) {
 	};
 
 	// Send the HTTP request to the Messenger Platform
-  	request({
-	    "uri": "https://graph.facebook.com/v2.6/me/messages",
-	    "qs": { "access_token": config.PAGE_ACCESS_TOKEN },
-	    "method": "POST",
-	    "json": req_body
-	  }, (err, res, body) => {
-	    if (!err) {
-	      console.log('message sent!')
-	    } else {
-	      console.error("Unable to send message:" + err);
-    }
-  	}); 
+  	request(
+  		{
+		    "uri": "https://graph.facebook.com/v2.6/me/messages",
+		    "qs": { "access_token": config.PAGE_ACCESS_TOKEN },
+		    "method": "POST",
+		    "json": req_body
+		}, 
+		(err, res, body) => {
+		    if (!err) {
+		      console.log('message sent!')
+		    } else {
+		      console.error("Unable to send message:" + err);
+    		}
+  		}
+  	); 
 }
 
 module.exports = {

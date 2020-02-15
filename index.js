@@ -5,6 +5,9 @@ const helpers = require('./helpers')
 
 const PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN;
 
+// Setup global users' conversation state management
+global.users = [];
+
 // Imports dependencies and set up http server
 const
   express = require('express'),
@@ -58,10 +61,15 @@ app.post('/webhook', (req, res) => {
       let sender_psid = webhook_event.sender.id;
       console.log('Sender PSID: ' + sender_psid);
 
+      // Create new user if havent
+      if(!global.users[sender_psid]) {
+      	global.users[sender_psid] = {'currentState': 'initial'};
+      }
+
       // Check if the event is a message or postback and
 	  // pass the event to the appropriate handler function
 	  if (webhook_event.message) {
-	    helpers.handleMessage(sender_psid, webhook_event.message);        
+	    helpers.handleMessage(sender_psid, webhook_event.message);  
 	  } else if (webhook_event.postback) {
 	    helpers.handlePostback(sender_psid, webhook_event.postback);
 	  }
