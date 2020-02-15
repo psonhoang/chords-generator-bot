@@ -63,6 +63,7 @@ app.post('/webhook', (req, res) => {
 
       // Create new user if havent
       if(!global.users[sender_psid]) {
+      	console.log("[DEBUG] User does not exist!");
       	global.users[sender_psid] = {'currentState': 'initial'};
       }
 

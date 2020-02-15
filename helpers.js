@@ -9,6 +9,8 @@ function handleMessage(sender_psid, received_message) {
 	// User's current conversation state
 	let currentState = global.users[sender_psid].currentState;
 
+	console.log("[DEBUG] currentState = " + currentState);
+
 	if(currentState == 'initial') {
 		response = responses.getStarted();
 	} else if(currentState == 'sendRec') {

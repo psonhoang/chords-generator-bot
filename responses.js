@@ -1,6 +1,6 @@
 function getStarted() {
 	let response = {
-		'text': 'Hi, there! Chordsky can generate accompaniment chords that are personal to your vocals. To get started, please record yourself singing a song that you would like to have accompaniment.'
+		'text': 'Hi, there! Chordsky can generate accompaniment chords that are personal to your vocals. To get started, please record yourself singing a song that you would like to have an accompaniment =)'
 	};
 	return response;
 }
