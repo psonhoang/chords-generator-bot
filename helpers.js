@@ -2,6 +2,7 @@ const request = require('request');
 
 const config = require('./config');
 const responses = require('./responses');
+
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
 	let response;
