@@ -5,7 +5,7 @@ MIDINAME=$2
 SECRET="${SESSSION_SECRET}"
 SSHPROMPT="assword:"
 
-#curl $WAVURL -o input.wav
+curl $WAVURL -o input.wav
 
 REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav $MIDINAME && curl -F 'file=@./$MIDINAME.mid' https://chords-bot.herokuapp.com/upload && echo UPLOADED OUTPUT"
 echo "local says output uploaded"
