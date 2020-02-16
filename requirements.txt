@@ -1,9 +1,0 @@
-numpy
-scipy
-keras
-music21
-soundfile
-resampy
-vamp
-midiutil
-jams
