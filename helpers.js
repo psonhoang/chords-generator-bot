@@ -64,7 +64,7 @@ function handlePostback(sender_psid, received_postback) {
 		callSendAPI(sender_psid, confirm_response);
 
 		//TODO: Script to generate chords
-		shell.exec(`./io/convert-wav.sh ${payload.audio_url} ${sender_psid}`);
+		//shell.exec(`./io/convert-wav.sh ${payload.audio_url} ${sender_psid}`);
 
 		response = responses.finished(sender_psid);
 		global.users[sender_psid].currentState = 'finished';
