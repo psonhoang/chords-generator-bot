@@ -19,6 +19,7 @@ function handleMessage(sender_psid, received_message) {
 		if(received_message.attachments && received_message.attachments[0].type == 'audio') {
 			// Get the URL of the message's attachment
 			let attachment_url = received_message.attachments[0].payload.url;
+			console.log("[DEBUG] url: " + attachment_url);
 			let received_audio_response = responses.audioResponse(attachment_url);
 			// Preview sent audio
 			callSendAPI(sender_psid, received_audio_response);
@@ -30,7 +31,7 @@ function handleMessage(sender_psid, received_message) {
 	} else if(currentState == 'checkRec') {
 		response = responses.notConfirmed();
 	} else if(currentState == 'finished') {
-		response = responses.finished();
+		response = responses.finished(sender_psid);
 	}
 
 	// Check if message contains text
@@ -63,7 +64,7 @@ function handlePostback(sender_psid, received_postback) {
 
 		//TODO: Script to generate chords
 
-		response = responses.finished();
+		response = responses.finished(sender_psid);
 		global.users[sender_psid].currentState = 'finished';
 	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();
@@ -71,7 +72,7 @@ function handlePostback(sender_psid, received_postback) {
 	} else if (payload == 'try_again' && currentState == 'finished') {
 		response = responses.getStarted();
 		global.users[sender_psid].currentState = 'sendRec';
-	} else if (payload == 'done' && currentState == 'finsihed') {
+	} else if (payload == 'done' && currentState == 'finished') {
 		response = responses.goodbye();
 		global.users[sender_psid].currentState = 'initial';
 	}
@@ -100,7 +101,7 @@ function callSendAPI(sender_psid, response) {
 		}, 
 		(err, res, body) => {
 		    if (!err) {
-		      console.log('message sent!')
+		      console.log('message sent!');
 		    } else {
 		      console.error("Unable to send message:" + err);
     		}
