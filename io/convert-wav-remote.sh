@@ -8,7 +8,7 @@ SSHPROMPT="assword:"
 echo $WAVURL
 curl -X GET $WAVURL -o input.wav
 
-REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav $MIDINAME && curl -F 'file=@./$MIDINAME.mid' https://chords-bot.herokuapp.com/upload && echo UPLOADED OUTPUT"
+REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav test.mid && curl -F 'file=@./$MIDINAME.mid' https://chords-bot.herokuapp.com/upload && echo UPLOADED OUTPUT"
 echo "local says output uploaded"
 
 
