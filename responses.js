@@ -76,11 +76,11 @@ function finished(sender_psid) {
 	        		{
 	        			"type": "web_url",
 	        			"url": config.REQUEST_URL + 'test.mp4',
-        				"title": "Your sick chords!"
+        				"title": "Your sick chords"
 	        		},
     				{
 		                "type": "postback",
-		                "title": "Try with another vocals",
+		                "title": "Try another one",
 		                "payload": "try_again",
 	              	},
 	              	{
