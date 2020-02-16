@@ -20,7 +20,7 @@ function audioResponse(audio_url) {
 	return response;
 }
 
-function checkAudio() {
+function checkAudio(attachment_url) {
 	let response = {
 		"attachment": {
 	        "type": "template",
@@ -31,12 +31,12 @@ function checkAudio() {
     				{
 		                "type": "postback",
 		                "title": "Yes!",
-		                "payload": "yes",
+		                "payload": attachment_url
 	              	},
 	              	{
 		                "type": "postback",
 		                "title": "No!",
-		                "payload": "no",
+		                "payload": "no"
 	              	}
 	        	]
 	        }

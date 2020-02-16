@@ -1,4 +1,5 @@
 const request = require('request');
+const shell = require('shelljs');
 
 const config = require('./config');
 const responses = require('./responses');
@@ -23,7 +24,7 @@ function handleMessage(sender_psid, received_message) {
 			let received_audio_response = responses.audioResponse(attachment_url);
 			// Preview sent audio
 			callSendAPI(sender_psid, received_audio_response);
-			response = responses.checkAudio();
+			response = responses.checkAudio(attachment_url);
 			global.users[sender_psid].currentState = 'checkRec';
 		} else {
 			response = responses.notAudioFile();
@@ -58,11 +59,12 @@ function handlePostback(sender_psid, received_postback) {
 	let payload = received_postback.payload;
 
 	// Set the response based on the postback payload
-	if(payload == 'yes' && currentState == 'checkRec') {
+	if(payload != 'no' && currentState == 'checkRec') {
 		confirm_response = responses.correctAudio();
 		callSendAPI(sender_psid, confirm_response);
 
 		//TODO: Script to generate chords
+		shell.exec(`bash ./io/convert-wav.sh ${payload} ${sender_psid}`);
 
 		response = responses.finished(sender_psid);
 		global.users[sender_psid].currentState = 'finished';
