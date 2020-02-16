@@ -1,14 +1,15 @@
 #!/bin/sh
 
 WAVURL=$1
-MIDINAME=$2
+#MIDINAME=$2
 SECRET="n0gloff@UCHI6"
 SSHPROMPT="assword:"
 
 echo $WAVURL
-curl -X GET $WAVURL -o input.wav
+curl -X GET $WAVURL -o input.mp4
+ffmpeg -i input.mp4 input.wav
 
-REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav test.mid && curl -F 'file=@./$MIDINAME.mid' https://chords-bot.herokuapp.com/upload && echo UPLOADED OUTPUT"
+REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav test && curl -F 'file=@./test.mid' https://chords-bot.herokuapp.com/upload && echo UPLOADED OUTPUT"
 echo "local says output uploaded"
 
 

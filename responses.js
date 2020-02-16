@@ -75,7 +75,7 @@ function finished(sender_psid) {
 	        	"buttons":[
 	        		{
 	        			"type": "web_url",
-	        			"url": config.REQUEST_URL + sender_psid + ".mid",
+	        			"url": config.REQUEST_URL + "test.mid",
         				"title": "Your sick chords"
 	        		},
     				{
