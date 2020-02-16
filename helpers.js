@@ -16,7 +16,7 @@ function handleMessage(sender_psid, received_message) {
 		response = responses.getStarted();
 		global.users[sender_psid].currentState = 'sendRec';
 	} else if(currentState == 'sendRec') {
-		if(received_message.attachments && received_message.attachments[0].type == 'audio') {
+		if(received_message.attachments && received_message.attachments[0].type == 'file') {
 			// Get the URL of the message's attachment
 			let attachment_url = received_message.attachments[0].payload.url;
 			let received_audio_response = responses.audioResponse('./test.mp4');
