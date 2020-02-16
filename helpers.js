@@ -31,7 +31,7 @@ function handleMessage(sender_psid, received_message) {
 	} else if(currentState == 'checkRec') {
 		response = responses.notConfirmed();
 	} else if(currentState == 'finished') {
-		response = responses.finished();
+		response = responses.finished(sender_psid);
 	}
 
 	// Check if message contains text
@@ -64,7 +64,7 @@ function handlePostback(sender_psid, received_postback) {
 
 		//TODO: Script to generate chords
 
-		response = responses.finished();
+		response = responses.finished(sender_psid);
 		global.users[sender_psid].currentState = 'finished';
 	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();

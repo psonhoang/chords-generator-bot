@@ -1,3 +1,5 @@
+const config = require('./config');
+
 function getStarted() {
 	let response = {
 		'text': 'Hi, there! Chordsky can generate accompaniment chords that are personal to your vocals. To get started, please record yourself singing a song that you would like to have an accompaniment =)'
@@ -63,7 +65,7 @@ function correctAudio() {
 	return response;
 }
 
-function finished() {
+function finished(sender_psid) {
 	let response = {
 		"attachment": {
 	        "type": "template",
@@ -71,6 +73,11 @@ function finished() {
 	        	"template_type": "button",
 	        	"text": "Your chords have been generated!",
 	        	"buttons":[
+	        		{
+	        			"type": "web_url",
+	        			"url": config.REQUEST_URL + 'test.mp4',
+        				"title": "Check out your chords here!"
+	        		},
     				{
 		                "type": "postback",
 		                "title": "Try with another vocals",
