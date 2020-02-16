@@ -1,4 +1,4 @@
-#!/usr/bin/expect -f
+#!/app/.apt/usr/bin/expect -f
 
 set timeout     -1
 set password    [lindex $argv 0]
