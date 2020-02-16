@@ -59,16 +59,16 @@ function handlePostback(sender_psid, received_postback) {
 	let payload = received_postback.payload;
 
 	// Set the response based on the postback payload
-	if(payload.confirmed && currentState == 'checkRec') {
+	if(payload != 'no' && currentState == 'checkRec') {
 		confirm_response = responses.correctAudio();
 		callSendAPI(sender_psid, confirm_response);
 
 		//TODO: Script to generate chords
-		//shell.exec(`./io/convert-wav.sh ${payload.audio_url} ${sender_psid}`);
+		shell.exec(`./io/convert-wav.sh ${payload} ${sender_psid}`);
 
 		response = responses.finished(sender_psid);
 		global.users[sender_psid].currentState = 'finished';
-	} else if (!payload.confirmed && currentState == 'checkRec') {
+	} else if (payload == 'no' && currentState == 'checkRec') {
 		response = responses.wrongAudio();
 		global.users[sender_psid].currentState = 'sendRec';
 	} else if (payload == 'try_again' && currentState == 'finished') {

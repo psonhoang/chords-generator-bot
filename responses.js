@@ -31,12 +31,12 @@ function checkAudio(attachment_url) {
     				{
 		                "type": "postback",
 		                "title": "Yes!",
-		                "payload": {'audio_url': attachment_url, 'confirmed': true}
+		                "payload": attachment_url
 	              	},
 	              	{
 		                "type": "postback",
 		                "title": "No!",
-		                "payload": {'confirmed': false}
+		                "payload": "no"
 	              	}
 	        	]
 	        }
