@@ -10,4 +10,6 @@ conda run -n datascience27 python $PARENTDIR/components/audio-to-midi/audio_to_m
 
 conda run -n datascience python $PARENTDIR/components/chord-prog-predict/predictonmidi.py temp.mid $MIDINAME.mid -e True
 
+
+
 rm temp.mid
