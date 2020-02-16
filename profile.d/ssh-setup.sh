@@ -17,6 +17,8 @@ chmod 600 ${HOME}/.ssh/heroku_id_rsa
 
 # Preload the known_hosts file  (see "version 2" below)
 
+echo '|1|Li3yjPNE10NJAAUuRfMKiQLAWmw=|Fr6vEgMFtixdKbFsavvDMUd8ZPE= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBK7LVt7f/0xOBjtU3Z/vuuNAdPYFRJw1r4xWpnkgNu4VlYAyFg2WsBR3Ij/egdx38jRZnrZUFsJiUolTLIMtInM=' > ${HOME}/.ssh/known_hosts
+
 # Start the SSH tunnel if not already running
 SSH_CMD="ssh namanh@linux.cs.uchicago.edu echo testingtesting"
 
