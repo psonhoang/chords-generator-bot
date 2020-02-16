@@ -1,9 +1,9 @@
+numpy
+scipy
 keras
 music21
-numpy
 soundfile
 resampy
 vamp
 midiutil
 jams
-scipy
