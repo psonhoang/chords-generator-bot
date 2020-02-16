@@ -18,9 +18,3 @@ spawn ssh $remotename $remotecmd
 expect "$sshprompt"
 send "$password\r"
 interact
-
-puts "\n retrieving output file"
-spawn sh -c "scp $remotename:$destpath/output.mid output.mid"
-expect $sshprompt
-send "$password\r"
-expect eof
