@@ -72,7 +72,7 @@ function handlePostback(sender_psid, received_postback) {
 	} else if (payload == 'try_again' && currentState == 'finished') {
 		response = responses.getStarted();
 		global.users[sender_psid].currentState = 'sendRec';
-	} else if (payload == 'done' && currentState == 'finsihed') {
+	} else if (payload == 'done' && currentState == 'finished') {
 		response = responses.goodbye();
 		global.users[sender_psid].currentState = 'initial';
 	}

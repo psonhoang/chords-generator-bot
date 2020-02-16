@@ -76,7 +76,7 @@ function finished(sender_psid) {
 	        		{
 	        			"type": "web_url",
 	        			"url": config.REQUEST_URL + 'test.mp4',
-        				"title": "Check out your chords here!"
+        				"title": "Your sick chords!"
 	        		},
     				{
 		                "type": "postback",
