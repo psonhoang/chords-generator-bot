@@ -8,7 +8,7 @@ function getStarted() {
 function audioResponse(audio_url) {
 	let response = {
 		'attachment': {
-			'type': 'file',
+			'type': 'audio',
 			'payload': {
 				'url': audio_url,
 				'is_reusable': true
