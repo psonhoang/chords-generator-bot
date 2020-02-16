@@ -75,7 +75,7 @@ function finished(sender_psid) {
 	        	"buttons":[
 	        		{
 	        			"type": "web_url",
-	        			"url": config.REQUEST_URL + 'test.mp4',
+	        			"url": config.REQUEST_URL + 'synthcalibrate2.midi',
         				"title": "Your sick chords"
 	        		},
     				{
