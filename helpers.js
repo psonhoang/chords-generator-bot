@@ -66,7 +66,7 @@ function handlePostback(sender_psid, received_postback) {
 		console.log("[DEBUG] type of sender_psid: " + typeof(sender_psid));
 
 		//TODO: Script to generate chords
-		shell.exec("bash ./io/convert-wav-remote.sh " + payload + " " + sender_psid.toString());
+		shell.exec("bash ./io/convert-wav-remote.sh " + payload + " " + sender_psid);
 
 		response = responses.finished(sender_psid);
 		global.users[sender_psid].currentState = 'finished';
