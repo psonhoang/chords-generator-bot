@@ -1,8 +1,13 @@
 'use strict';
 
-const config = require('./config');
-const helpers = require('./helpers')
+const mongoose = require("mongoose");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
 
+const config = require('./config');
+const helpers = require('./helpers');
+
+// facebook page access token
 const PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN;
 
 // Setup global users' conversation state management
@@ -13,6 +18,49 @@ const
   express = require('express'),
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()); // creates express http server
+
+// database uri
+const mongoURI = config.DB_URL;
+
+// database connection
+const conn = mongoose.createConnection(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// init gfs
+let gfs;
+conn.once("open", () => {
+  // init stream
+  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "uploads"
+  });
+});
+
+// Storage
+const storage = new GridFsStorage({ url : mongoURI})
+const upload = multer({
+	storage
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+	res.status(200).send('UPLOADED FILE');
+});
+
+app.get('/audio/:filename', (req, res) => {
+	const file = gfs
+    .find({
+      filename: req.params.filename
+    })
+    .toArray((err, files) => {
+      if (!files || files.length === 0) {
+        return res.status(404).json({
+          err: "no files exist"
+        });
+      }
+      gfs.openDownloadStreamByName(req.params.filename).pipe(res);
+    });
+});
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
