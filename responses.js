@@ -81,12 +81,12 @@ function finished(sender_psid) {
     				{
 		                "type": "postback",
 		                "title": "Try another one",
-		                "payload": "try_again",
+		                "payload": "try_again"
 	              	},
 	              	{
 		                "type": "postback",
 		                "title": "I'm done here",
-		                "payload": "done",
+		                "payload": "done"
 	              	}
 	        	]
 	        }
