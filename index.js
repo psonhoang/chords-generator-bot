@@ -38,7 +38,18 @@ conn.once("open", () => {
 });
 
 // Storage
-const storage = new GridFsStorage({ url : mongoURI})
+const storage = new GridFsStorage({
+	  url: mongoURI,
+	  file: (req, file) => {
+	    return new Promise((resolve, reject) => {
+	        const fileInfo = {
+	          filename: file.originalname,
+	          bucketName: "uploads"
+	        };
+	        resolve(fileInfo);
+	    });
+	  }
+});
 const upload = multer({
 	storage
 });
