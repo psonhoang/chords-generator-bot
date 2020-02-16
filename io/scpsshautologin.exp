@@ -1,0 +1,26 @@
+#!/usr/bin/expect -f
+
+set timeout     -1
+set password    [lindex $argv 0]
+set srcpath     [lindex $argv 1]
+set destpath    [lindex $argv 2]
+set remotename  [lindex $argv 3]
+set remotecmd   [lindex $argv 4]
+set sshprompt   [lindex $argv 5]
+
+spawn sh -c "scp $srcpath $remotename:$destpath/"
+expect "$sshprompt"
+send "$password\r";
+expect eof
+
+puts "\nEntering SSH to compile and run..."
+spawn ssh $remotename $remotecmd
+expect "$sshprompt"
+send "$password\r"
+interact
+
+puts "\n retrieving output file"
+spawn sh -c "scp $remotename:$destpath/output.mid output.mid"
+expect $sshprompt
+send "$password\r"
+expect eof
