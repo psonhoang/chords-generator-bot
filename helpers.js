@@ -19,7 +19,7 @@ function handleMessage(sender_psid, received_message) {
 		if(received_message.attachments && received_message.attachments[0].type == 'audio') {
 			// Get the URL of the message's attachment
 			let attachment_url = received_message.attachments[0].payload.url;
-			let received_audio_response = responses.audioResponse(attachment_url);
+			let received_audio_response = responses.audioResponse('./synthcalibrate2.midi');
 			// Preview sent audio
 			callSendAPI(sender_psid, received_audio_response);
 			response = responses.checkAudio();
