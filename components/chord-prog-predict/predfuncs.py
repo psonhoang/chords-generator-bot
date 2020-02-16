@@ -82,7 +82,7 @@ def writeToMidi(outputfile, timestamps, melodylist, chordslist, scorekey):
         chordChord.quarterLength = t[0]
         chordsPart.append(chordChord)
     
-    myScore.insert(timestamps[0], melodyPart)
+    #myScore.insert(timestamps[0], melodyPart)
     myScore.insert(timestamps[0], chordsPart)
     
     #myScore.show("text")

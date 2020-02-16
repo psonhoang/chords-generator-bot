@@ -1,4 +1,7 @@
 import argparse
+import sys
+import os
+
 from keras.models import load_model
 
 import prepfuncs
@@ -18,7 +21,7 @@ argparser.add_argument("-e","--empty", type=bool, default=False, help="Flag for 
 cmdargs = argparser.parse_args()
 
 print("-------Loading prediction model...-------")
-model = load_model(MODELFILE)
+model = load_model(os.path.dirname(sys.argv[0]) + "/" + MODELFILE)
 print("Done loading prediction model")
 
 if not cmdargs.key == "": #if a custom key is specified, then parse the midi using that key
