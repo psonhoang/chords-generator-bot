@@ -13,6 +13,8 @@ echo "local says output uploaded"
 
 
 
-$(dirname "$0")/scpsshautologin.exp "$SECRET" input.wav ~/Documents/uh2020/uncommonhacks2020/io namanh@linux.cs.uchicago.edu "$REMOTECMD" "$SSHPROMPT"
+scp input.wav namanh@linux.cs.uchicago.edu:~/Documents/uh2020/uncommonhacks2020/io
+ssh namanh@linux.cs.uchicago.edu $REMOTECMD
 
+#$(dirname "$0")/scpsshautologin.exp "$SECRET" input.wav ~/Documents/uh2020/uncommonhacks2020/io namanh@linux.cs.uchicago.edu "$REMOTECMD" "$SSHPROMPT"
 
