@@ -9,7 +9,7 @@ echo $WAVURL
 curl -X GET $WAVURL -o input.mp4
 ffmpeg -i input.mp4 input.wav
 
-REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav test && curl -F 'file=@./test.mid' https://chords-bot.herokuapp.com/upload && echo UPLOADED OUTPUT"
+REMOTECMD="cd ~/Documents/uh2020/uncommonhacks2020/io && ./convert-wav-local.sh input.wav test && curl -F 'file=@./test.mid' https://a38bde8d.ngrok.io/upload && echo UPLOADED OUTPUT"
 echo "local says output uploaded"
 
 
